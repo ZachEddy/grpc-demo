@@ -1,10 +1,10 @@
-package demo 
+package demo
 
 import (
 	"errors"
 	"sync"
 
-	"grpc-demo/grpc-demo-server/pkg/pb"
+	"grpc-demo/demo-server/pkg/pb"
 )
 
 var (

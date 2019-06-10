@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"grpc-demo/grpc-demo-server/pkg/pb"
+	"grpc-demo/demo-server/pkg/pb"
 
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc"

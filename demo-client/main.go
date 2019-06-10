@@ -1,7 +1,7 @@
 package main
 
 import (
-	"grpc-demo/grpc-demo-client/cmd"
+	"grpc-demo/demo-client/cmd"
 )
 
 func main() {

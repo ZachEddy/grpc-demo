@@ -6,8 +6,8 @@ import (
 	"net"
 	"net/http"
 
-	"grpc-demo/grpc-demo-server/pkg/demo"
-	"grpc-demo/grpc-demo-server/pkg/pb"
+	"grpc-demo/demo-server/pkg/demo"
+	"grpc-demo/demo-server/pkg/pb"
 
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"

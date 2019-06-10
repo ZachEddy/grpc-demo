@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	"grpc-demo/grpc-demo-server/pkg/pb"
+	"grpc-demo/demo-server/pkg/pb"
 
 	"github.com/technosophos/moniker"
 	"google.golang.org/grpc/codes"

@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"grpc-demo/grpc-demo-server/pkg/pb"
+	"grpc-demo/demo-server/pkg/pb"
 
 	"github.com/spf13/cobra"
 )
