@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+service Demo {
+    rpc CreateClock(CreateTickerRequest) returns (CreateTickerResponse);
+    rpc StopClock(StopClockRequest) returns (StopClockResponse);
+    rpc StopAllClocks(StopAllClocksRequest) returns (StopAllClocksResponse);
+    rpc ListClocks(ListClocksRequest) returns (ListClocksResponse);
+    rpc GetClockEvents(GetClockEventsRequest) returns (stream ClockEvent);
+}
+
+message CreateTickerRequest { uint32 interval = 1 ; }
+message CreateTickerResponse { string name = 1; }
+
+message StopClockRequest { string name = 1; }
+message StopClockResponse {}
+
+message StopAllClocksRequest {}
+message StopAllClocksResponse { repeated string names = 1; }
+
+message ListClocksRequest {}
+message ListClocksResponse { repeated string names = 1; }
+
+message GetClockEventsRequest {}
+message ClockEvent {
+    string name = 1;
+    Event event = 2;
+    enum Event {
+        START = 0;
+        RESET = 1;
+        STOP = 2;
+    }
+}
