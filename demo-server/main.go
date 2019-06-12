@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"net"
@@ -14,10 +15,21 @@ import (
 	"google.golang.org/grpc"
 )
 
+var (
+	flagServerPort  = flag.Int("server-address", 8080, "grpc server port")
+	flagMetricsPort = flag.Int("metrics-address", 7070, "metrics port")
+)
+
+func init() {
+	flag.Parse()
+}
+
 func main() {
+	log.Printf("serving grpc on port %d\n", *flagServerPort)
+	log.Printf("serving prometheus metrics on port %d\n", *flagMetricsPort)
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", 8080))
 	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+		log.Fatalf("failed to create tcp listener: %v", err)
 	}
 	server := grpc.NewServer(
 		grpc.UnaryInterceptor(grpc_prometheus.UnaryServerInterceptor),

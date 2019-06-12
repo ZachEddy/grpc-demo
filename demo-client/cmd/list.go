@@ -9,18 +9,20 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var startCmd = &cobra.Command{
-	Use:   "start",
-	Short: "Starts a new server clock",
+var listCmd = &cobra.Command{
+	Use:   "list",
+	Short: "Lists all server clocks",
 	Run: func(cmd *cobra.Command, args []string) {
 		client, err := newClient()
 		if err != nil {
 			printErrAndQuit(err)
 		}
-		res, err := client.CreateClock(context.Background(), &pb.CreateTickerRequest{})
+		clocks, err := client.ListClocks(context.Background(), &pb.ListClocksRequest{})
 		if err != nil {
 			printErrAndQuit(err)
 		}
-		fmt.Printf("Clock '%s' started\n", res.GetName())
+		for i, clock := range clocks.GetNames() {
+			fmt.Printf("%d: %s\n", i, clock)
+		}
 	},
 }

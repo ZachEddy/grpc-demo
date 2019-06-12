@@ -11,11 +11,13 @@ import (
 
 var stopAllCmd = &cobra.Command{
 	Use:   "stop-all",
-	Short: "Stops a clock on the server",
+	Short: "Stops all the the server clocks",
 	Run: func(cmd *cobra.Command, args []string) {
-		client, err := NewClient()
+		client, err := newClient()
 		res, err := client.StopAllClocks(context.Background(), &pb.StopAllClocksRequest{})
-		PrintErrAndQuit(err)
+		if err != nil {
+			printErrAndQuit(err)
+		}
 		for _, name := range res.GetNames() {
 			fmt.Println(name)
 		}

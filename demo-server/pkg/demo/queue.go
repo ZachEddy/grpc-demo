@@ -8,17 +8,17 @@ import (
 )
 
 var (
-	// ErrEmptyQueue ...
+	// ErrEmptyQueue is returned whenever the queue is empty
 	ErrEmptyQueue = errors.New("queue is empty")
 )
 
-// Queue thing
+// EventQueue is an atomic queue that stores clock events
 type EventQueue struct {
 	sync.Mutex
 	Events []*pb.ClockEvent
 }
 
-// Dequeue ...
+// Dequeue removers an event from the queue
 func (q *EventQueue) Dequeue() (*pb.ClockEvent, error) {
 	q.Lock()
 	defer q.Unlock()
@@ -30,7 +30,7 @@ func (q *EventQueue) Dequeue() (*pb.ClockEvent, error) {
 	return event, nil
 }
 
-// Enqueue ...
+// Enqueue adds an event to the queue
 func (q *EventQueue) Enqueue(event *pb.ClockEvent) {
 	q.Lock()
 	defer q.Unlock()

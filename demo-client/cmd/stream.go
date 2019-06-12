@@ -15,22 +15,22 @@ import (
 
 var streamCmd = &cobra.Command{
 	Use:   "stream",
-	Short: "Stops a clock on the server",
+	Short: "Streams all server clock events",
 	Run: func(cmd *cobra.Command, args []string) {
-		client, err := NewClient()
+		client, err := newClient()
 		stream, err := client.GetClockEvents(context.Background(), &pb.GetClockEventsRequest{})
 		if err != nil {
-			PrintErrAndQuit(err)
+			printErrAndQuit(err)
 		}
 		doneChan := make(chan (interface{}))
 		go func() {
 			reader := bufio.NewReader(os.Stdin)
 			fmt.Println("Press enter to stop streaming")
 			if _, err := reader.ReadString('\n'); err != nil {
-				PrintErrAndQuit(err)
+				printErrAndQuit(err)
 			}
 			if err := stream.CloseSend(); err != nil {
-				PrintErrAndQuit(err)
+				printErrAndQuit(err)
 			}
 			close(doneChan)
 			return

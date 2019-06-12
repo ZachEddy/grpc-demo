@@ -11,6 +11,7 @@ import (
 )
 
 func init() {
+	rootCmd.AddCommand(listCmd)
 	rootCmd.AddCommand(startCmd)
 	rootCmd.AddCommand(stopCmd)
 	rootCmd.AddCommand(stopAllCmd)
@@ -18,22 +19,21 @@ func init() {
 }
 
 var rootCmd = &cobra.Command{
-	Short: "Hugo is a very fast static site generator",
-	Long: `A Fast and Flexible Static Site Generator built with
-				  love by spf13 and friends in Go.
-				  Complete documentation is available at http://hugo.spf13.com`,
+	Short: "This is an awesome demo CLI client for the gRPC server",
 }
 
+// Execute launches the root command
 func Execute() error {
 	return rootCmd.Execute()
 }
 
-func PrintErrAndQuit(err error) {
+func printErrAndQuit(err error) {
 	fmt.Printf("unable to complete request: %v\n", err)
 	os.Exit(0)
 }
 
-func NewClient() (pb.DemoClient, error) {
+func newClient() (pb.DemoClient, error) {
+	// TODO: hardcoded, but whatever
 	conn, err := grpc.Dial("localhost:8080", grpc.WithInsecure())
 	if err != nil {
 		return nil, err

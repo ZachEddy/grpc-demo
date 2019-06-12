@@ -15,15 +15,15 @@ import (
 
 var stopCmd = &cobra.Command{
 	Use:   "stop",
-	Short: "Stops a clock on the server",
+	Short: "Stops a server clock",
 	Run: func(cmd *cobra.Command, args []string) {
-		client, err := NewClient()
+		client, err := newClient()
 		if err != nil {
-			PrintErrAndQuit(err)
+			printErrAndQuit(err)
 		}
 		clocks, err := client.ListClocks(context.Background(), &pb.ListClocksRequest{})
 		if err != nil {
-			PrintErrAndQuit(err)
+			printErrAndQuit(err)
 		}
 		for i, clock := range clocks.GetNames() {
 			fmt.Printf("%d: %s\n", i, clock)
@@ -32,19 +32,19 @@ var stopCmd = &cobra.Command{
 		fmt.Print("Choose clock to stop: ")
 		responseRaw, err := reader.ReadString('\n')
 		if err != nil {
-			PrintErrAndQuit(err)
+			printErrAndQuit(err)
 		}
 		response, err := strconv.Atoi(strings.TrimSpace(responseRaw))
 		if err != nil {
-			PrintErrAndQuit(err)
+			printErrAndQuit(err)
 		}
 		if response < 0 || response > len(clocks.GetNames())-1 {
-			PrintErrAndQuit(fmt.Errorf("fuck you"))
+			printErrAndQuit(fmt.Errorf("Invalid clock choice"))
 		}
 		if _, err := client.StopClock(context.Background(), &pb.StopClockRequest{
 			Name: clocks.GetNames()[response],
 		}); err != nil {
-			PrintErrAndQuit(err)
+			printErrAndQuit(err)
 		}
 	},
 }

@@ -26,7 +26,8 @@ message ClockEvent {
     Event event = 2;
     enum Event {
         START = 0;
-        RESET = 1;
-        STOP = 2;
+        TICK = 1;
+        TOCK = 2;
+        STOP = 3;
     }
 }
